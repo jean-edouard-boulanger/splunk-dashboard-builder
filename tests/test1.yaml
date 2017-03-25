@@ -1,0 +1,29 @@
+form:
+  label: &my_dashboard_name DLIB Services Load
+  description: *my_dashboard_name
+  rows:
+    _:
+      arguments:
+        svc:
+          - svc1
+          - svc2
+          - svc3
+      body:
+        panels:
+          _:
+            arguments:
+              by:
+                - ''
+                - by host
+              filter:
+                - ERROR
+            body:
+              title: '{svc}'
+              items:
+                - chart:
+                    options:
+                      charting.chart: line
+                    search:
+                      query: '{filter} {svc} | timechart count {by}'
+                      earliest: $picker.earliest$
+                      latest: $picket.latest$
